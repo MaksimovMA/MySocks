@@ -34,7 +34,7 @@ public class SocksService {
     }
 
     public void deleteSocks(String color, Integer cottonPart, Integer quantity) {
-        if (socksRepository.findSocksByColorAndCottonPart(color, cottonPart) != null && quantity>0) {
+        if (socksRepository.findSocksByColorAndCottonPart(color, cottonPart) != null && quantity > 0) {
             Socks socksFormDB = socksRepository.findSocksByColorAndCottonPart(color, cottonPart);
             if (socksFormDB.getQuantity() >= quantity) {
                 socksFormDB.setQuantity(socksFormDB.getQuantity() - quantity);
@@ -52,10 +52,26 @@ public class SocksService {
     }
 
     public Integer getCountSocksType(String color, String operation, Integer cottonPart) {
-        List<Socks> listSocks =  socksRepository.findSocksByColor(color);
+        List<Socks> listSocks = socksRepository.findSocksByColor(color);
         int count = 0;
         for (int i = 0; i < listSocks.size(); i++) {
-            if(listSocks.get(i).getCottonPart()>cottonPart) {count=count+listSocks.get(i).getQuantity();}
+            switch (operation.toUpperCase()) {
+                case "MORETHAN":
+                    if (listSocks.get(i).getCottonPart() > cottonPart) {
+                        count = count + listSocks.get(i).getQuantity();
+                    }
+                    break;
+                case "LESSTHAN":
+                    if (listSocks.get(i).getCottonPart() < cottonPart) {
+                        count = count + listSocks.get(i).getQuantity();
+                    }
+                    break;
+                case "EQUAL":
+                    if (listSocks.get(i).getCottonPart() == cottonPart) {
+                        count = count + listSocks.get(i).getQuantity();
+                    }
+                    break;
+            }
         }
         return count;
     }
