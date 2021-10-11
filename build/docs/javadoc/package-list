@@ -1,0 +1,6 @@
+com.mma.socks
+com.mma.socks.controller
+com.mma.socks.entity
+com.mma.socks.exceptions
+com.mma.socks.repository
+com.mma.socks.service
