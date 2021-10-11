@@ -32,16 +32,3 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
-
-
-jar {
-	doFirst {
-		manifest {
-			if (!configurations.compile.isEmpty()) {
-				attributes(
-						'Class-Path': configurations.compile.collect{it.toURI().toString()}.join(' '),
-						'Main-Class': 'com/mma/socks/SocksApplication.java')
-			}
-		}
-	}
-}
